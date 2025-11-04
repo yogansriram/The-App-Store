@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moyos App Hub</title>
+    
+    <!-- Author: Mosses -->
+    <!-- Version: 1.1.0 -->
+    <!-- Changelog: Switched to Poppins font and a light (white/red) theme. -->
+    
+    <!-- Tailwind CSS for modern styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Font: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Apply the Poppins font family */
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        /* Smooth scrolling for anchor links */
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        /* A simple fade-in animation for page load */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+        
+        body {
+            animation: fadeIn 0.5s ease-out;
+        }
+    </style>
+</head>
+<body class="bg-white text-gray-900">
+
+    <!-- Main Container -->
+    <div class="max-w-7xl mx-auto p-4 md:p-8">
+
+        <!-- Header -->
+        <header class="mb-12 text-center">
+            <h1 class="text-4xl md:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-red-600 to-red-800">
+                Moyo's App Hub
+            </h1>
+            <p class="text-lg md:text-xl text-gray-600 mt-2">A showcase of my latest applications.</p>
+        </header>
+
+        <!-- 
+          SECTION 1: APP GALLERY (Main View)
+          This is the main "storefront" showing all apps.
+        -->
+        <main id="app-gallery-view">
+            <h2 class="text-3xl font-bold mb-8 border-l-4 border-red-600 pl-4">All Apps</h2>
+            <div id="app-gallery-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10">
+                <!-- App cards will be dynamically inserted here by JavaScript -->
+            </div>
+        </main>
+
+        <!-- 
+          SECTION 2: APP DETAIL (Hidden View)
+          This view is hidden by default and shown when an app is clicked.
+          It's styled to look like a premium product page.
+        -->
+        <section id="app-detail-view" class="hidden animate-fadeIn">
+            <!-- Back Button -->
+            <button id="back-button" class="mb-8 text-red-600 hover:text-red-700 hover:underline transition-colors duration-200">
+                &larr; Back to all apps
+            </button>
+
+            <!-- Hero Section -->
+            <div class="flex flex-col lg:flex-row gap-10 lg:gap-16 items-center mb-16">
+                <!-- Left Column (Info & CTA) -->
+                <div class="lg:w-1/2 w-full">
+                    <h1 id="detail-name" class="text-4xl md:text-6xl font-extrabold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-red-600 to-red-800">
+                        <!-- App Name -->
+                    </h1>
+                    <p id="detail-tagline" class="text-xl md:text-2xl text-gray-600 mb-6">
+                        <!-- App Tagline -->
+                    </p>
+                    <p id="detail-desc" class="text-gray-500 text-lg mb-8 leading-relaxed">
+                        <!-- App Description -->
+                    </p>
+                    
+                    <!-- Download Buttons -->
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <a id="download-ios" href="#" class="flex-1 text-center bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-6 rounded-lg transition-transform duration-200 transform hover:scale-105 shadow-lg">
+                            Download for iOS
+                        </a>
+                        <a id="download-android" href="#" class="flex-1 text-center bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-3 px-6 rounded-lg transition-transform duration-200 transform hover:scale-105 shadow-lg">
+                            Download for Android
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Right Column (Main Image) -->
+                <div class="lg:w-1/2 w-full">
+                    <img id="detail-image" src="https://placehold.co/600x400/F3F4F6/111827?text=App+Mockup" 
+                         onerror="this.src='https://placehold.co/600x400/F3F4F6/9CA3AF?text=App+Mockup'"
+                         alt="App Mockup" class="w-full rounded-2xl shadow-2xl object-cover">
+                </div>
+            </div>
+
+            <!-- Screenshots Section -->
+            <div class="mb-16">
+                <h2 class="text-3xl font-bold mb-6 border-l-4 border-red-600 pl-4">Screenshots</h2>
+                <div id="detail-screenshots" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Screenshots will be dynamically inserted here -->
+                </div>
+            </div>
+
+            <!-- App Information Section -->
+            <div>
+                <h2 class="text-3xl font-bold mb-6 border-l-4 border-red-600 pl-4">App Information</h2>
+                <div class="bg-gray-50 border border-gray-200 rounded-lg p-6 divide-y divide-gray-200">
+                    <div class="flex justify-between py-3">
+                        <span class="text-gray-500 font-medium">Version</span>
+                        <span id="detail-version" class="font-semibold"><!-- Version --></span>
+                    </div>
+                    <div class="flex justify-between py-3">
+                        <span class="text-gray-500 font-medium">Last Updated</span>
+                        <span id="detail-last-updated" class="font-semibold"><!-- Date --></span>
+                    </div>
+                    <div class="flex justify-between py-3">
+                        <span class="text-gray-500 font-medium">Developer</span>
+                        <span id="detail-developer" class="font-semibold"><!-- Developer --></span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div> <!-- End Main Container -->
+
+    <!-- Footer -->
+    <footer class="text-center p-8 mt-16 border-t border-gray-200">
+        <p class="text-gray-500">&copy; <span id="footer-year"></span> Moyos App Hub. All rights reserved.</p>
+    </footer>
+
+    <!-- 
+      ==================================
+      JAVASCRIPT
+      ==================================
+      Handles the single-page app logic.
+    -->
+    <script>
+        // --- APP DATABASE ---
+        // Add your app details here.
+        const appsData = [
+            {
+                id: 'app-1',
+                name: 'TaskFlow',
+                tagline: 'Organize your life, one task at a time.',
+                description: 'TaskFlow is a beautifully simple, free to-do list and task manager app that helps you get all your tasks, and life, in order. Whether you\'re running a project, or just remembering to buy groceries, TaskFlow makes it easy.',
+                icon: 'https://placehold.co/100x100/F9FAFB/DC2626?text=TF',
+                mainImage: 'https://placehold.co/600x400/F3F4F6/111827?text=TaskFlow+Mockup',
+                screenshots: [
+                    'https://placehold.co/400x300/F3F4F6/111827?text=Screen+1',
+                    'https://placehold.co/400x300/F3F4F6/111827?text=Screen+2',
+                    'https://placehold.co/400x300/F3F4F6/111827?text=Screen+3'
+                ],
+                version: '2.1.0',
+                lastUpdated: '2025-10-30',
+                developer: 'Mosses',
+                download: {
+                    ios: '#download-taskflow-ios',
+                    android: '#download-taskflow-android'
+                }
+            },
+            {
+                id: 'app-2',
+                name: 'SoundWave',
+                tagline: 'Your music, your way, anywhere.',
+                description: 'Discover and stream millions of songs from artists you love. Create custom playlists, follow your favorite artists, and enjoy high-fidelity sound with our ad-free premium experience. Music has never sounded this good.',
+                icon: 'https://placehold.co/100x100/F9FAFB/DC2626?text=SW',
+                mainImage: 'https://placehold.co/600x400/F3F4F6/111827?text=SoundWave+Mockup',
+                screenshots: [
+                    'https://placehold.co/400x300/F3F4F6/111827?text=Listen+Now',
+                    'https://placehold.co/400x300/F3F4F6/111827?text=Playlists',
+                    'https://placehold.co/400x300/F3F4F6/111827?text=Artist+Page'
+                ],
+                version: '1.5.2',
+                lastUpdated: '2025-10-15',
+                developer: 'Mosses',
+                download: {
+                    ios: '#download-soundwave-ios',
+                    android: '#download-soundwave-android'
+                }
+            },
+            {
+                id: 'app-3',
+                name: 'PixelForge',
+                tagline: 'Pro-level photo editing, simplified.',
+                description: 'PixelForge brings the power of a desktop photo editor to your phone. With advanced tools like layers, blend modes, and AI-powered filters, you can turn your snapshots into masterpieces. Non-destructive editing ensures your original is always safe.',
+                icon: 'https://placehold.co/100x100/F9FAFB/DC2626?text=PF',
+                mainImage: 'https://placehold.co/600x400/F3F4F6/111827?text=PixelForge+Mockup',
+                screenshots: [
+                    'https://placehold.co/400x300/F3F4F6/111827?text=Editor+UI',
+                    'https://placehold.co/400x300/F3F4F6/111827?text=AI+Filters',
+                    'https://placehold.co/400x300/F3F4F6/111827?text=Export+Options'
+                ],
+                version: '3.0.1',
+                lastUpdated: '2025-09-28',
+                developer: 'Mosses',
+                download: {
+                    ios: '#download-pixelforge-ios',
+                    android: '#download-pixelforge-android'
+                }
+            }
+        ];
+
+        // --- DOM Element References ---
+        const galleryView = document.getElementById('app-gallery-view');
+        const galleryGrid = document.getElementById('app-gallery-grid');
+        const detailView = document.getElementById('app-detail-view');
+        const backButton = document.getElementById('back-button');
+
+        /**
+         * Renders the main app gallery grid.
+         */
+        const renderGallery = () => {
+            galleryGrid.innerHTML = ''; // Clear existing grid
+            
+            appsData.forEach(app => {
+                const card = document.createElement('div');
+                card.className = 'bg-white border border-gray-200 rounded-lg p-6 shadow-lg hover:shadow-2xl transform hover:-translate-y-2 transition-all duration-300 cursor-pointer flex flex-col items-center text-center';
+                
+                card.innerHTML = `
+                    <img src="${app.icon}" 
+                         onerror="this.src='https://placehold.co/100x100/F3F4F6/9CA3AF?text=Icon'"
+                         alt="${app.name} Icon" 
+                         class="w-24 h-24 rounded-full mb-4 shadow-md border-4 border-gray-200">
+                    <h3 class="text-2xl font-bold mb-2">${app.name}</h3>
+                    <p class="text-gray-500">${app.tagline}</p>
+                `;
+                
+                // Add click listener to show detail view
+                card.addEventListener('click', () => showAppDetail(app.id));
+                galleryGrid.appendChild(card);
+            });
+        };
+
+        /**
+         * Renders the detail view for a specific app.
+         * @param {string} appId - The ID of the app to show.
+         */
+        const showAppDetail = (appId) => {
+            // Find the app data using the modern .find() method
+            const app = appsData.find(a => a.id === appId);
+            if (!app) {
+                console.error(`App with ID "${appId}" not found.`);
+                return;
+            }
+
+            // Destructure the app object for cleaner code
+            const { 
+                name, tagline, description, mainImage, screenshots, 
+                version, lastUpdated, developer, download 
+            } = app;
+
+            // --- Populate Detail View ---
+            
+            // Hero
+            document.getElementById('detail-name').textContent = name;
+            document.getElementById('detail-tagline').textContent = tagline;
+            document.getElementById('detail-desc').textContent = description;
+            document.getElementById('detail-image').src = mainImage;
+            document.getElementById('detail-image').alt = `${name} mockup`;
+            
+            // Download Links
+            document.getElementById('download-ios').href = download.ios;
+            document.getElementById('download-android').href = download.android;
+
+            // Screenshots
+            const screenshotContainer = document.getElementById('detail-screenshots');
+            screenshotContainer.innerHTML = screenshots.map(src => `
+                <img src="${src}" 
+                     onerror="this.src='https://placehold.co/400x300/F3F4F6/9CA3AF?text=Screenshot'"
+                     alt="Screenshot of ${name}" 
+                     class="rounded-lg shadow-md w-full h-auto object-cover aspect-video">
+            `).join('');
+
+            // App Info
+            document.getElementById('detail-version').textContent = version;
+            document.getElementById('detail-last-updated').textContent = lastUpdated;
+            document.getElementById('detail-developer').textContent = developer;
+
+            // --- Toggle Views ---
+            galleryView.classList.add('hidden');
+            detailView.classList.remove('hidden');
+            
+            // Scroll to the top of the page
+            window.scrollTo(0, 0);
+        };
+
+        /**
+         * Hides the detail view and shows the main gallery.
+         */
+        const showGallery = () => {
+            detailView.classList.add('hidden');
+            galleryView.classList.remove('hidden');
+            window.scrollTo(0, 0);
+        };
+
+        // --- Initial Setup & Event Listeners ---
+        document.addEventListener('DOMContentLoaded', () => {
+            // Log app data to console in a modern, readable table
+            console.group("App Hub Initializing");
+            console.log("Found the following apps:");
+            console.table(appsData.map(app => ({ name: app.name, version: app.version, developer: app.developer })));
+            console.groupEnd();
+
+            // Set footer year
+            document.getElementById('footer-year').textContent = new Date().getFullYear();
+            
+            // Render the initial gallery
+            renderGallery();
+        });
+
+        // Add click listener for the back button
+        backButton.addEventListener('click', showGallery);
+
+    </script>
+</body>
+</html>
+
